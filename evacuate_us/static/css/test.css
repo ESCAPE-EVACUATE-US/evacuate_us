@@ -1,0 +1,17 @@
+.arrows{
+margin-top: 10%;
+height: 50px;
+width: 50px;
+
+}
+.text{
+    margin-top: 5%;
+   margin-left: 15%;
+   margin-right: 15%;
+    color: aqua; 
+    /* color: white;
+    position: center; */
+}
+.carousel{
+    background-color: gray;
+}

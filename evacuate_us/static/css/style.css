@@ -1,0 +1,97 @@
+.detail_view{
+    margin-top: 25%;
+    margin-left: 3%;
+    margin-right: 3%;
+
+
+}
+.test{
+    color: brown;
+}
+
+.name{
+    -bs-btn-hover-bg: #fff;
+    color: black;
+    background-color: #fff;
+    width: 100%;
+
+
+
+}
+/* :root{
+    -bs-btn-hover-bg: #fff;
+    color: black;
+    background-color: #fff;
+} */
+.collapseText{
+margin-right: 3%;
+
+
+}
+.collapseGas{
+
+    margin-top: 5%;
+}
+.header_name{
+margin-left: 5%;
+
+}
+.slider{
+margin-top: 10%;
+}
+.header{
+/* background-color: #0edede ;
+    padding:50px; */
+}
+.text-area{
+/* background-color: aquamarine; */
+padding: 10%;
+
+}
+.numbers{
+margin-left: 97%;
+margin-top: -80%;
+margin-right: 10%;
+
+}
+.zoom{
+margin-left: 97%;
+margin-top: 10%;
+margin-right: 10%;
+
+}
+.floor_button4{
+    margin-top: 2%;
+}
+.floor_button3{
+   margin-top: 2%;
+}
+.floor_button2{
+   margin-top: 2%;
+}
+.floor_button1{
+   margin-top: 2%;
+}
+.plus_button{
+   margin-top: 2%;
+}
+.minus_button{
+    margin-top: 2%;
+}
+.map{
+    margin-top: 10%;
+    margin-right: 10%;
+    margin-left: -10%;
+}
+.detalis{
+    margin-top: 25%;
+   margin-left: 45%;
+}
+.route{
+    margin-top: 10%;
+    margin-left: 30%;
+}
+.scan{
+    margin-left: 80%;
+    margin-top: 10%;
+}
