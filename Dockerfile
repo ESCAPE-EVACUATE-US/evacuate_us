@@ -1,4 +1,4 @@
-FROM python:3.9.17-slim-buster
+FROM python:3.10-slim-buster
 ENV PYTHONUNBUFFERED=1 \
     # prevents python creating .pyc files
     PYTHONDONTWRITEBYTECODE=1 \
@@ -18,6 +18,7 @@ ENV PYTHONUNBUFFERED=1 \
     POETRY_NO_INTERACTION=1
 ENV PATH="$POETRY_HOME/bin:$PATH"
 RUN apt-get update && apt-get install --no-install-recommends -y curl build-essential
+RUN apt-get install ffmpeg libsm6 libxext6  -y
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
 WORKDIR /code
@@ -25,9 +26,6 @@ COPY poetry.lock pyproject.toml /code/
 RUN poetry config virtualenvs.create false
 RUN poetry install
 
-#
-COPY ./yoyo.ini /code
-COPY ./migrations /code/migrations
 COPY ./evacuate_us /code/evacuate_us
 
 
