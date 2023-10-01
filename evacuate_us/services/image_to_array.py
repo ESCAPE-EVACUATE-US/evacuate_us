@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import image
 
+
 def image_to_array(path):
     open_cv_image = cv2.imread(path)
     shape = open_cv_image.shape
@@ -16,6 +17,4 @@ def image_to_array(path):
             else:
                 open_cv_image[i][j] = [255., 255., 255.]
 
-    image.imsave("test.svg", format="svg", arr=open_cv_image)
-
-    return arr.tolist()
+    return arr.tolist(), open_cv_image
