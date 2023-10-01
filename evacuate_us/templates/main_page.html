@@ -1,189 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/test.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<!--<script src="/js/scanner.js"></script>-->
-</head>
-<body>
-  <nav class = "navbar navbar-expand-lg navbar-dark" style="background-color:rgb(7, 0, 17)" >
-    <div class="container">
-      <a href="/" class="navbar-brand">Escape</a>
-      <button class= "navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-        aria-controls="navbarContent" aria-expanded="false">
-      <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarContent">
-        <ul class="navbar-nav">
-           <li class="nav-item">
-            <a href="/" class="nav-link">Main</a>
-           </li>
-           <li class="nav-item">
-            <a href="/how_to_use" class="nav-link">FAQs</a>
-           </li>
-           <li class="nav-item">
-            <a href="/model" class="nav-link">Model</a>
-           </li>
-           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Safe recommendations</a>
-            <ul class="dropdown-menu dropdown-menu-dark"style="background-color:rgb(7, 0, 17)" >
-              <li><a class="dropdown-item" href="/gas"> При утечке газа</a></li>
-              <li><a class="dropdown-item" href="/fire"> При пожаре</a></li>
-            </ul>
-           </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
+{% extends "base.html" %}
+{% block content %}
   <form action="/exit" method="post" enctype="multipart/form-data">
       <input type="file" accept="image/*" name="file" class="form-control">
       <button type="submit">Подтвердить</button>
   </form>
 
-  <div class="scanner" style="padding: 5%">
-    <h1>Photo Scanner</h1>
-    <video id="video" autoplay></video>
-    <button class="btn btn-primary btn-lg" id="captureButton">Capture Photo</button>
-    <canvas id="canvas" style="display: none;"></canvas>
-    <img id="capturedImage" style="display: none;">
-    
-    <script>
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const capturedImage = document.getElementById('capturedImage');
-        const captureButton = document.getElementById('captureButton');
-        let photoCaptured = false; // Flag to track whether a photo has been captured
+<!--  <div class="scanner" style="padding: 5%">-->
+<!--    <h1>Photo Scanner</h1>-->
+<!--    <video id="video" autoplay></video>-->
+<!--    <button class="btn btn-primary btn-lg" id="captureButton">Capture Photo</button>-->
+<!--    <canvas id="canvas" style="display: none;"></canvas>-->
+<!--    <img id="capturedImage" style="display: none;">-->
+<!--    -->
+<!--    <script>-->
+<!--        const video = document.getElementById('video');-->
+<!--        const canvas = document.getElementById('canvas');-->
+<!--        const capturedImage = document.getElementById('capturedImage');-->
+<!--        const captureButton = document.getElementById('captureButton');-->
+<!--        let photoCaptured = false; // Flag to track whether a photo has been captured-->
 
-        // Get user media (camera) on page load
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-                video.srcObject = stream;
-            })
-            .catch(function (error) {
-                console.error('Error accessing webcam:', error);
-            });
+<!--        // Get user media (camera) on page load-->
+<!--        navigator.mediaDevices.getUserMedia({ video: true })-->
+<!--            .then(function (stream) {-->
+<!--                video.srcObject = stream;-->
+<!--            })-->
+<!--            .catch(function (error) {-->
+<!--                console.error('Error accessing webcam:', error);-->
+<!--            });-->
 
-        // Function to capture a photo
-        captureButton.addEventListener('click', function () {
-            if (!photoCaptured) {
-                const context = canvas.getContext('2d');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                capturedImage.src = canvas.toDataURL('image/jpeg');
-                capturedImage.style.display = 'block';
-                photoCaptured = true;
+<!--        // Function to capture a photo-->
+<!--        captureButton.addEventListener('click', function () {-->
+<!--            if (!photoCaptured) {-->
+<!--                const context = canvas.getContext('2d');-->
+<!--                canvas.width = video.videoWidth;-->
+<!--                canvas.height = video.videoHeight;-->
+<!--                context.drawImage(video, 0, 0, canvas.width, canvas.height);-->
+<!--                capturedImage.src = canvas.toDataURL('image/jpeg');-->
+<!--                capturedImage.style.display = 'block';-->
+<!--                photoCaptured = true;-->
 
-                // Stop the video stream
-                const tracks = video.srcObject.getTracks();
-                tracks.forEach(track => track.stop());
+<!--                // Stop the video stream-->
+<!--                const tracks = video.srcObject.getTracks();-->
+<!--                tracks.forEach(track => track.stop());-->
 
-                // Change button text to allow capturing another photo
-                captureButton.textContent = 'Capture Another Photo';
-            } else {
-                // Reset for capturing another photo
-                capturedImage.style.display = 'none';
-                photoCaptured = false;
-                captureButton.textContent = 'Capture Photo';
+<!--                // Change button text to allow capturing another photo-->
+<!--                captureButton.textContent = 'Capture Another Photo';-->
+<!--            } else {-->
+<!--                // Reset for capturing another photo-->
+<!--                capturedImage.style.display = 'none';-->
+<!--                photoCaptured = false;-->
+<!--                captureButton.textContent = 'Capture Photo';-->
 
-                // Restart the video stream
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function (stream) {
-                        video.srcObject = stream;
-                    })
-                    .catch(function (error) {
-                        console.error('Error accessing webcam:', error);
-                    });
-            }
-        });
-    </script>
-
-
-   
-</div>
-<!-- <div class="converter" style="padding: 5%;">
-<h1>Image to SVG Converter</h1>
-    
-   
-    <input type="file" accept="image/*" id="image-input">
-    
-    
-    <div id="image-container">
-        <img id="input-image" src="" alt="Uploaded Image" style="max-width: 100%; display: none;">
-    </div>
-
-   
-    <div>
-        <h2>Converted SVG:</h2>
-        <textarea id="output-svg" rows="10"></textarea>
-    </div>
-  </div> -->
-<!-- <main>
-    <div id="carouselCaptions" class="carousel slide">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="/img/map1.svg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="/img/map2.svg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="/img/map3.svg" class="d-block w-100" alt="...">
-        </div>
-      </div>
-      <div class="text">
-   <p>text text text text text text text text text text text text text text</p>
+<!--                // Restart the video stream-->
+<!--                navigator.mediaDevices.getUserMedia({ video: true })-->
+<!--                    .then(function (stream) {-->
+<!--                        video.srcObject = stream;-->
+<!--                    })-->
+<!--                    .catch(function (error) {-->
+<!--                        console.error('Error accessing webcam:', error);-->
+<!--                    });-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
   </div>
-      <div class="arrows">
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions" data-bs-slide="prev" style="height: 10%; margin-top: 105%;" >
-        <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color:rgb(7, 0, 17)" ></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselCaptions" data-bs-slide="next" style="height: 10%; margin-top: 105%;">
-        <span class="carousel-control-next-icon" aria-hidden="true" style="background-color:rgb(7, 0, 17)" ></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-      </div>
-    </div>
-     <div class="carousel slide" id="carouselControls">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img class="d-block w-100" src="/img/map1.svg">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="/img/map2.svg">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="/img/map3.svg">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="/img/map4.svg">
-        </div>
-      </div>
-</div>
-<a class="carousel-control-prev" role="button" href="#carouselControls" data-bs-slide="prev">
-  <span class="carousel-control-prev-icon" style="background-color:rgb(197, 179, 179)"></span>
-</a>
-<a class="carousel-control-next" role="button" href="#carouselControls" data-bs-slide="next">
-  <span class="carousel-control-next-icon" style="background-color:rgb(197, 179, 179)"></span>
-</a> 
-  </main>
-  -->
-</body>
-</html>
+{% endblock content %}
