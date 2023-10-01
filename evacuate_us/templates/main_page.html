@@ -5,62 +5,62 @@
       <button type="submit">Подтвердить</button>
   </form>
 
-  <div class="scanner" style="padding: 5%">
-    <h1>Photo Scanner</h1>
-    <video id="video" autoplay></video>
-    <button class="btn btn-primary btn-lg" id="captureButton">Capture Photo</button>
-    <canvas id="canvas" style="display: none;"></canvas>
-    <img id="capturedImage" style="display: none;">
-    
-    <script>
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const capturedImage = document.getElementById('capturedImage');
-        const captureButton = document.getElementById('captureButton');
-        let photoCaptured = false; // Flag to track whether a photo has been captured
+<!--  <div class="scanner" style="padding: 5%">-->
+<!--    <h1>Photo Scanner</h1>-->
+<!--    <video id="video" autoplay></video>-->
+<!--    <button class="btn btn-primary btn-lg" id="captureButton">Capture Photo</button>-->
+<!--    <canvas id="canvas" style="display: none;"></canvas>-->
+<!--    <img id="capturedImage" style="display: none;">-->
+<!--    -->
+<!--    <script>-->
+<!--        const video = document.getElementById('video');-->
+<!--        const canvas = document.getElementById('canvas');-->
+<!--        const capturedImage = document.getElementById('capturedImage');-->
+<!--        const captureButton = document.getElementById('captureButton');-->
+<!--        let photoCaptured = false; // Flag to track whether a photo has been captured-->
 
-        // Get user media (camera) on page load
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-                video.srcObject = stream;
-            })
-            .catch(function (error) {
-                console.error('Error accessing webcam:', error);
-            });
+<!--        // Get user media (camera) on page load-->
+<!--        navigator.mediaDevices.getUserMedia({ video: true })-->
+<!--            .then(function (stream) {-->
+<!--                video.srcObject = stream;-->
+<!--            })-->
+<!--            .catch(function (error) {-->
+<!--                console.error('Error accessing webcam:', error);-->
+<!--            });-->
 
-        // Function to capture a photo
-        captureButton.addEventListener('click', function () {
-            if (!photoCaptured) {
-                const context = canvas.getContext('2d');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                capturedImage.src = canvas.toDataURL('image/jpeg');
-                capturedImage.style.display = 'block';
-                photoCaptured = true;
+<!--        // Function to capture a photo-->
+<!--        captureButton.addEventListener('click', function () {-->
+<!--            if (!photoCaptured) {-->
+<!--                const context = canvas.getContext('2d');-->
+<!--                canvas.width = video.videoWidth;-->
+<!--                canvas.height = video.videoHeight;-->
+<!--                context.drawImage(video, 0, 0, canvas.width, canvas.height);-->
+<!--                capturedImage.src = canvas.toDataURL('image/jpeg');-->
+<!--                capturedImage.style.display = 'block';-->
+<!--                photoCaptured = true;-->
 
-                // Stop the video stream
-                const tracks = video.srcObject.getTracks();
-                tracks.forEach(track => track.stop());
+<!--                // Stop the video stream-->
+<!--                const tracks = video.srcObject.getTracks();-->
+<!--                tracks.forEach(track => track.stop());-->
 
-                // Change button text to allow capturing another photo
-                captureButton.textContent = 'Capture Another Photo';
-            } else {
-                // Reset for capturing another photo
-                capturedImage.style.display = 'none';
-                photoCaptured = false;
-                captureButton.textContent = 'Capture Photo';
+<!--                // Change button text to allow capturing another photo-->
+<!--                captureButton.textContent = 'Capture Another Photo';-->
+<!--            } else {-->
+<!--                // Reset for capturing another photo-->
+<!--                capturedImage.style.display = 'none';-->
+<!--                photoCaptured = false;-->
+<!--                captureButton.textContent = 'Capture Photo';-->
 
-                // Restart the video stream
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function (stream) {
-                        video.srcObject = stream;
-                    })
-                    .catch(function (error) {
-                        console.error('Error accessing webcam:', error);
-                    });
-            }
-        });
-    </script>
+<!--                // Restart the video stream-->
+<!--                navigator.mediaDevices.getUserMedia({ video: true })-->
+<!--                    .then(function (stream) {-->
+<!--                        video.srcObject = stream;-->
+<!--                    })-->
+<!--                    .catch(function (error) {-->
+<!--                        console.error('Error accessing webcam:', error);-->
+<!--                    });-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
   </div>
 {% endblock content %}

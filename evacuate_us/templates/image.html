@@ -1,4 +1,103 @@
 {% extends "base.html" %}
+
 {% block content %}
-<img src="{{ url_for('static', path=path) }}" />
+<main>
+    <style>
+        body {
+            width: max-content;
+        }
+        nav {
+            width: auto;
+        }
+        .marker {
+            cursor: pointer;
+        }
+        main {
+            padding-top: 50px;
+        }
+        svg {
+            overflow: scroll;
+        }
+        image {
+            overflow: scroll;
+        }
+    </style>
+    <svg id="svg-map" xmlns="http://www.w3.org/2000/svg" width="{{ width }}" height="{{ height }}">
+        <image href="{{ url_for('static', path=path) }}" width="100%" height="100%" />
+        <g id="marker-group">
+        </g>
+    </svg>
+
+    <button class="btn btn-success" id="confirm-location" disabled>Confirm Location</button>
+    <button class="btn btn-danger" id="remove-location" disabled>Remove Location</button>
+
+    <script>
+        var svgMap = document.getElementById("svg-map");
+        let pt = svgMap.createSVGPoint();
+        var markerGroup = document.getElementById("marker-group");
+        var confirmLocationButton = document.getElementById("confirm-location");
+        var removeLocationButton = document.getElementById("remove-location");
+        var count = 0;
+
+        var selectedMarker = null;
+
+        function get_coords(evt) {
+            pt.x = evt.clientX;
+            pt.y = evt.clientY;
+
+            // The cursor point, translated into svg coordinates
+            let cursorpt =  pt.matrixTransform(svgMap.getScreenCTM().inverse());
+            return [cursorpt.x, cursorpt.y]
+        }
+
+
+        svgMap.addEventListener("click", function(event) {
+          if (count<=0){
+            if (!selectedMarker) {
+                var x = event.clientX - svgMap.getBoundingClientRect().left;
+                var y = event.clientY - svgMap.getBoundingClientRect().top;
+
+
+                var marker = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                marker.setAttribute("cx", x);
+                marker.setAttribute("cy", y);
+                marker.setAttribute("r", 15);
+                marker.setAttribute("fill", "yellow");
+                marker.setAttribute("class", "marker");
+
+
+                marker.addEventListener("click", function() {
+                    if (selectedMarker) {
+                        selectedMarker.classList.remove("selected");
+                    }
+                    marker.classList.add("selected");
+                    selectedMarker = marker;
+                    confirmLocationButton.removeAttribute("disabled");
+                    removeLocationButton.removeAttribute("disabled");
+                });
+
+
+                markerGroup.appendChild(marker);
+              }
+                count++;
+            }
+        });
+        confirmLocationButton.addEventListener("click", function(event) {
+            let [x, y] = get_coords(event);
+            window.location.replace("/exit/coords/?x=" + x + "&y=" + y);
+            // alert("Location confirmed!");
+            confirmLocationButton.setAttribute("disabled", true);
+        });
+
+
+        removeLocationButton.addEventListener("click", function() {
+            if (selectedMarker) {
+                markerGroup.removeChild(selectedMarker);
+                selectedMarker = null;
+                removeLocationButton.setAttribute("disabled", true);
+                count = 0;
+            }
+        });
+    </script>
+</main>
 {% endblock content %}

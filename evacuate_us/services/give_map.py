@@ -19,5 +19,6 @@ def upload_image_get_dest(file: UploadFile):
         shutil.copyfileobj(file.file, buffer)
 
     arr, img = image_to_array(dest)
+    height, width = len(arr), len(arr[0])
     image.imsave(dest + ".svg", format="svg", arr=img)
-    return dest
+    return dest, width, height
