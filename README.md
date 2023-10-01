@@ -11,5 +11,5 @@
 1. Go to the root endpoint ```http://0.0.0.0:8000```
 2. Choose an image
 3. Click confirm button
-4. You will get a scanned image. Click on your position, click "Mark" button and "Confirm button"
+4. You will get a scanned image. Double-click on your position, click "Confirm location"
 5. In dev =)
